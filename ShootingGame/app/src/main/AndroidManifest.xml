@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Testing5">
         <activity
-            android:name=".shotting"
+            android:name=".MainMenuActivity"
             android:exported="true"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -21,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".shotting"
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".Testing1"
             android:exported="false" />
