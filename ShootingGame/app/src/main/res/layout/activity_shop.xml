@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#80000000">
+
+    <!-- Header with Back and Tab Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:text="←"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/back_button_background"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/buyTabButton"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="BUY"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@drawable/tab_button_background"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="8dp" />
+
+        <Button
+            android:id="@+id/sellTabButton"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="SELL"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@drawable/tab_button_background"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="8dp" />
+
+        <Button
+            android:id="@+id/retrieveTabButton"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:text="RETRIEVE"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:background="@drawable/tab_button_background"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="8dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <!-- Content Area -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Buy Tab Content -->
+        <LinearLayout
+            android:id="@+id/buyTabContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <!-- Left Side: Available Skins Grid (70%) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AVAILABLE SKINS"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="8dp" />
+
+                <GridView
+                    android:id="@+id/buySkinsGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:numColumns="5"
+                    android:horizontalSpacing="2dp"
+                    android:verticalSpacing="20dp"
+                    android:padding="4dp"
+                    android:scrollbars="vertical"
+                    android:fadeScrollbars="false"
+                    android:stretchMode="none"
+                    android:columnWidth="80dp" />
+
+            </LinearLayout>
+
+            <!-- Right Side: Buy Details Panel (30%) -->
+            <LinearLayout
+                android:id="@+id/buyDetailsPanel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:background="#AA000000"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SKIN DETAILS"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="8dp" />
+
+                <ImageView
+                    android:id="@+id/buySkinPreviewImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/skin_preview_background"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/buySkinNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Skin Name"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/buySkinPriceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Price: 100 coins"
+                    android:textSize="14sp"
+                    android:textColor="#FFD700"
+                    android:layout_marginBottom="8dp" />
+
+                <Button
+                    android:id="@+id/buySkinButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="BUY SKIN"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/buy_button_background"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Sell Tab Content -->
+        <LinearLayout
+            android:id="@+id/sellTabContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <!-- Left Side: User's Skins Grid (70%) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MY SKINS"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="8dp" />
+
+                <GridView
+                    android:id="@+id/sellSkinsGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:numColumns="5"
+                    android:horizontalSpacing="2dp"
+                    android:verticalSpacing="20dp"
+                    android:padding="4dp"
+                    android:scrollbars="vertical"
+                    android:fadeScrollbars="false"
+                    android:stretchMode="none"
+                    android:columnWidth="80dp" />
+
+            </LinearLayout>
+
+            <!-- Right Side: Sell Details Panel (30%) -->
+            <LinearLayout
+                android:id="@+id/sellDetailsPanel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:background="#AA000000"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SELL SKIN"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="8dp" />
+
+                <ImageView
+                    android:id="@+id/sellSkinPreviewImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/skin_preview_background"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/sellSkinNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Skin Name"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Price:"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="4dp" />
+
+                <EditText
+                    android:id="@+id/sellPriceEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Enter price"
+                    android:inputType="number"
+                    android:textSize="14sp"
+                    android:background="@drawable/input_field_background"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#CCCCCC"
+                    android:padding="8dp"
+                    android:layout_marginBottom="8dp" />
+
+                <Button
+                    android:id="@+id/putToShopButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="PUT TO SHOP"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/sell_button_background"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Retrieve Tab Content -->
+        <LinearLayout
+            android:id="@+id/retrieveTabContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <!-- Left Side: Skins for Retrieval Grid (70%) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SKINS FOR RETRIEVAL"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="8dp" />
+
+                <GridView
+                    android:id="@+id/retrieveSkinsGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:numColumns="5"
+                    android:horizontalSpacing="2dp"
+                    android:verticalSpacing="20dp"
+                    android:padding="4dp"
+                    android:scrollbars="vertical"
+                    android:fadeScrollbars="false"
+                    android:stretchMode="none"
+                    android:columnWidth="80dp" />
+
+            </LinearLayout>
+
+            <!-- Right Side: Skin Details (30%) -->
+            <LinearLayout
+                android:id="@+id/retrieveDetailsPanel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:background="#40000000">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SKIN DETAILS"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="8dp" />
+
+                <ImageView
+                    android:id="@+id/retrieveSkinPreviewImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/skin_preview_background"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/retrieveSkinNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select a skin"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/retrieveSkinPriceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price: -"
+                    android:textSize="12sp"
+                    android:textColor="#CCCCCC"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp" />
+
+                <Button
+                    android:id="@+id/retrieveSkinButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="RETRIEVE SKIN"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/buy_button_background"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
+

@@ -44,6 +44,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 public class shotting extends AppCompatActivity {
 
     class CirclePair {
@@ -584,5 +593,64 @@ public class shotting extends AppCompatActivity {
 
 
 
+        // Load and apply user's selected skin
+        loadUserSkin(bigCircle3);
+
+    }
+    
+    private void loadUserSkin(ImageView playerCircle) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            return; // No user logged in, use default skin
+        }
+        
+        String userId = auth.getCurrentUser().getUid();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        
+        db.collection("users").document(userId).get()
+            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String selectedSkinId = document.getString("selectedSkin");
+                            if (selectedSkinId != null && !selectedSkinId.isEmpty()) {
+                                // Load the selected skin
+                                loadSkinById(selectedSkinId, playerCircle);
+                            }
+                        }
+                    }
+                }
+            });
+    }
+    
+    private void loadSkinById(String skinId, ImageView playerCircle) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        
+        db.collection("skins").document(skinId).get()
+            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String imageBase64 = document.getString("imageBase64");
+                            if (imageBase64 != null && !imageBase64.isEmpty()) {
+                                try {
+                                    // Decode base64 to bitmap
+                                    byte[] decodedBytes = Base64.decode(imageBase64, Base64.DEFAULT);
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                                    
+                                    // Apply the skin to the player circle
+                                    playerCircle.setImageBitmap(bitmap);
+                                } catch (Exception e) {
+                                    Log.e("SkinLoad", "Error loading skin: " + e.getMessage());
+                                }
+                            }
+                        }
+                    }
+                }
+            });
     }
 }

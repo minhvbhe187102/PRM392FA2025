@@ -11,8 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Testing5">
+        
+        <!-- Google Play Services version -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <activity
-            android:name=".MainMenuActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -22,7 +27,23 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MainMenuActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".shotting"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".InventoryActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".PullActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ShopActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity

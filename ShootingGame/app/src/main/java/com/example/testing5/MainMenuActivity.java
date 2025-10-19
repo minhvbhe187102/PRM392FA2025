@@ -2,24 +2,53 @@ package com.example.testing5;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 public class MainMenuActivity extends AppCompatActivity {
+    private static final String TAG = "MainMenuActivity";
+    private FirebaseService firebaseService;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu_layout);
 
+        // Initialize Firebase service
+        firebaseService = FirebaseService.getInstance();
+        
+        // Check if user is logged in
+        if (!firebaseService.isUserLoggedIn()) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         // Get button references
         Button startButton = findViewById(R.id.startButton);
         Button quitButton = findViewById(R.id.quitButton);
+        Button inventoryButton = findViewById(R.id.inventoryButton);
+        Button pullButton = findViewById(R.id.pullButton);
+        Button shopButton = findViewById(R.id.shopButton);
         ImageButton settingsButton = findViewById(R.id.settingsButton);
+        TextView userInfoText = findViewById(R.id.userInfoText);
+
+        // Load user data from Firebase
+        loadUserData();
 
         // Start button - navigate to game
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -30,20 +59,89 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        // Quit button - exit app
+        // Inventory button - navigate to inventory
+        inventoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, InventoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Pull button - navigate to pull activity
+        pullButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, PullActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        shopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, ShopActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Quit button - logout and exit
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firebaseService.signOut();
+                Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 finish();
             }
         });
 
-        // Settings button - show settings (placeholder)
+        // Settings button - initialize skins (temporary)
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainMenuActivity.this, "Settings coming soon!", Toast.LENGTH_SHORT).show();
+                // Initialize example skins in database
+                SkinInitializer skinInitializer = new SkinInitializer();
+                skinInitializer.initializeExampleSkins();
+                Toast.makeText(MainMenuActivity.this, "Example skins added to database!", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Reload user data each time we return to the menu to get updated currency/scores
+        loadUserData();
+    }
+
+    private void loadUserData() {
+        FirebaseUser firebaseUser = firebaseService.getCurrentUser();
+        if (firebaseUser != null) {
+            firebaseService.getUserProfile(firebaseUser.getUid(), new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        currentUser = firebaseService.documentToUser(task.getResult());
+                        if (currentUser != null) {
+                            updateUserInfo();
+                        }
+                    } else {
+                        Log.e(TAG, "Error loading user data", task.getException());
+                    }
+                }
+            });
+        }
+    }
+
+    private void updateUserInfo() {
+        TextView userInfoText = findViewById(R.id.userInfoText);
+        if (currentUser != null && userInfoText != null) {
+            userInfoText.setText("Welcome, " + currentUser.getUsername() + 
+                    "\nCurrency: " + currentUser.getCurrency() + 
+                    "\nHigh Score: " + currentUser.getHighScore());
+        }
+    }
+    
 }

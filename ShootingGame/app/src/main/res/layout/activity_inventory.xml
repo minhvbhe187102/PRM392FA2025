@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#80000000">
+
+    <!-- Skin Grid (60% of screen) -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.6"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MY SKINS"
+                android:textSize="24sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:text="BACK"
+                android:textSize="12sp"
+                android:background="@drawable/quit_button_background"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+        <!-- Skin Grid -->
+        <GridView
+            android:id="@+id/skinGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="5"
+            android:horizontalSpacing="100dp"
+            android:verticalSpacing="20dp"
+            android:stretchMode="none"
+            android:background="#40000000"
+            android:padding="4dp"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false" />
+
+    </LinearLayout>
+
+    <!-- Skin Details (40% of screen) -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:background="#60000000"
+        android:padding="16dp">
+
+        <!-- Skin Preview -->
+        <ImageView
+            android:id="@+id/skinPreviewImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/skin_preview_background"
+            android:scaleType="centerInside" />
+
+        <!-- Skin Info -->
+        <TextView
+            android:id="@+id/skinNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select a skin"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/skinDescriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:textColor="#CCCCCC"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/skinPriceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:textColor="#FFD700"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/skinOwnerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="#AAAAAA"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Action Buttons -->
+        <Button
+            android:id="@+id/equipSkinButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="SELECT SKIN"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/start_button_background"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/purchaseSkinButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="PURCHASE"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/inventory_button_background"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/skinStatusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:textColor="#00FF00"
+            android:gravity="center"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
