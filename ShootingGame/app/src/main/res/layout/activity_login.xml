@@ -60,6 +60,17 @@
             android:textSize="16sp"
             android:layout_marginBottom="24dp" />
 
+        <!-- Remember Me Checkbox -->
+        <CheckBox
+            android:id="@+id/rememberMeCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remember Me"
+            android:textColor="#CCCCCC"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp"
+            android:checked="false" />
+
         <!-- Login/Signup Button -->
         <Button
             android:id="@+id/loginButton"

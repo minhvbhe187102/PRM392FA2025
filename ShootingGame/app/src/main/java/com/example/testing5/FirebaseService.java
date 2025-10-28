@@ -1,6 +1,9 @@
 package com.example.testing5;
 
+import android.app.Activity;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -386,5 +389,90 @@ public class FirebaseService {
         db.collection("skins").document(skin.getSkinId())
             .set(skin)
             .addOnCompleteListener(listener);
+    }
+    
+    /**
+     * Get skins by list of IDs
+     */
+    public void getSkinsByIds(List<String> skinIds, OnCompleteListener<List<Skin>> listener) {
+        if (skinIds == null || skinIds.isEmpty()) {
+            // Create a simple completed task for empty list
+            com.google.android.gms.tasks.Tasks.forResult((List<Skin>) new ArrayList<Skin>())
+                .addOnCompleteListener(listener);
+            return;
+        }
+        
+        // For simplicity, we'll get skins one by one
+        List<Skin> skins = new ArrayList<>();
+        java.util.concurrent.atomic.AtomicInteger completed = new java.util.concurrent.atomic.AtomicInteger(0);
+        int total = skinIds.size();
+        
+        for (String skinId : skinIds) {
+            getSkinById(skinId, new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful() && task.getResult().exists()) {
+                        Skin skin = documentToSkin(task.getResult());
+                        if (skin != null) {
+                            skins.add(skin);
+                        }
+                    }
+                    
+                    if (completed.incrementAndGet() == total) {
+                        // Create a simple completed task with the results
+                        com.google.android.gms.tasks.Tasks.forResult((List<Skin>) skins)
+                            .addOnCompleteListener(listener);
+                    }
+                }
+            });
+        }
+    }
+    
+    public void executeTrade(String user1Id, String user2Id, List<Skin> user1Skins, List<Skin> user2Skins, int user1Currency, int user2Currency, OnCompleteListener<Object> listener) {
+        db.runTransaction(transaction -> {
+            // First, do ALL reads before any writes
+            DocumentReference user1Ref = db.collection("users").document(user1Id);
+            DocumentReference user2Ref = db.collection("users").document(user2Id);
+            
+            DocumentSnapshot user1Doc = null;
+            DocumentSnapshot user2Doc = null;
+            
+            if (user1Currency > 0 || user2Currency > 0) {
+                user1Doc = transaction.get(user1Ref);
+                user2Doc = transaction.get(user2Ref);
+            }
+            
+            // Now do ALL writes
+            // Transfer user1's skins to user2
+            for (Skin skin : user1Skins) {
+                DocumentReference skinRef = db.collection("skins").document(skin.getSkinId());
+                transaction.update(skinRef, "currentOwner", user2Id);
+            }
+            
+            // Transfer user2's skins to user1
+            for (Skin skin : user2Skins) {
+                DocumentReference skinRef = db.collection("skins").document(skin.getSkinId());
+                transaction.update(skinRef, "currentOwner", user1Id);
+            }
+            
+            // Transfer currency (using pre-read values)
+            if ((user1Currency > 0 || user2Currency > 0) && user1Doc != null && user1Doc.exists() && user2Doc != null && user2Doc.exists()) {
+                int user1CurrentCurrency = user1Doc.getLong("currency").intValue();
+                int user2CurrentCurrency = user2Doc.getLong("currency").intValue();
+                
+                // Calculate final currency amounts after both transfers
+                int user1FinalCurrency = user1CurrentCurrency - user1Currency/2 + user2Currency/2;
+                int user2FinalCurrency = user2CurrentCurrency - user2Currency/2 + user1Currency/2;
+                
+                transaction.update(user1Ref, "currency", user1FinalCurrency);
+                transaction.update(user2Ref, "currency", user2FinalCurrency);
+            }
+            
+            return null;
+        }).addOnCompleteListener(listener);
+    }
+    
+    public void getUserById(String userId, OnCompleteListener<DocumentSnapshot> listener) {
+        db.collection("users").document(userId).get().addOnCompleteListener(listener);
     }
 }

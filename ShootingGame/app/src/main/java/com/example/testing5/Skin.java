@@ -1,6 +1,23 @@
 package com.example.testing5;
 
 public class Skin {
+    
+    // Rarity enum
+    public enum Rarity {
+        COMMON("Common"),
+        UNCOMMON("Uncommon"), 
+        RARE("Rare");
+        
+        private final String displayName;
+        
+        Rarity(String displayName) {
+            this.displayName = displayName;
+        }
+        
+        public String getDisplayName() {
+            return displayName;
+        }
+    }
     private String skinId;
     private String name;
     private String description;
@@ -11,13 +28,14 @@ public class Skin {
     private long createdAt; // Timestamp
     private boolean forSale; // Whether skin is available for purchase
     private boolean unique; // True for unique/NFT-style skins
+    private Rarity rarity; // Skin rarity (COMMON, UNCOMMON, RARE)
 
     // Default constructor (required for Firestore)
     public Skin() {}
 
     // Constructor for unique skins
     public Skin(String skinId, String name, String description, int price, String imageBase64, 
-                String creatorId, boolean isUnique) {
+                String creatorId, boolean isUnique, Rarity rarity) {
         this.skinId = skinId;
         this.name = name;
         this.description = description;
@@ -28,10 +46,11 @@ public class Skin {
         this.createdAt = System.currentTimeMillis();
         this.forSale = true;
         this.unique = isUnique;
+        this.rarity = rarity;
     }
     
     // Constructor for non-unique skins (unlimited copies)
-    public Skin(String skinId, String name, String description, int price, String imageBase64) {
+    public Skin(String skinId, String name, String description, int price, String imageBase64, Rarity rarity) {
         this.skinId = skinId;
         this.name = name;
         this.description = description;
@@ -42,6 +61,7 @@ public class Skin {
         this.createdAt = System.currentTimeMillis();
         this.forSale = true;
         this.unique = false;
+        this.rarity = rarity;
     }
 
     // Getters and Setters
@@ -125,6 +145,13 @@ public class Skin {
         this.unique = unique;
     }
 
+    public Rarity getRarity() {
+        return rarity;
+    }
+
+    public void setRarity(Rarity rarity) {
+        this.rarity = rarity;
+    }
 
     // Helper methods
     public boolean isOwnedBy(String userId) {

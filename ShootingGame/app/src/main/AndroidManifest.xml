@@ -47,6 +47,14 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".TradingRoomActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".TradingActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".Testing1"
             android:exported="false" />
         <activity

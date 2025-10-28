@@ -1,6 +1,7 @@
 package com.example.testing5;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +45,7 @@ public class MainMenuActivity extends AppCompatActivity {
         Button inventoryButton = findViewById(R.id.inventoryButton);
         Button pullButton = findViewById(R.id.pullButton);
         Button shopButton = findViewById(R.id.shopButton);
+        Button tradeButton = findViewById(R.id.tradeButton);
         ImageButton settingsButton = findViewById(R.id.settingsButton);
         TextView userInfoText = findViewById(R.id.userInfoText);
 
@@ -85,10 +87,26 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        // Trade button - navigate to trading room
+        tradeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, TradingRoomActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Quit button - logout and exit
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Clear saved login information
+                SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("saved_email");
+                editor.putBoolean("remember_me", false);
+                editor.apply();
+                
                 firebaseService.signOut();
                 Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -97,14 +115,11 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        // Settings button - initialize skins (temporary)
+        // Settings button - placeholder for future settings
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Initialize example skins in database
-                SkinInitializer skinInitializer = new SkinInitializer();
-                skinInitializer.initializeExampleSkins();
-                Toast.makeText(MainMenuActivity.this, "Example skins added to database!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainMenuActivity.this, "Settings coming soon!", Toast.LENGTH_SHORT).show();
             }
         });
     }

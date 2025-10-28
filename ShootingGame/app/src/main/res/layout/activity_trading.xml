@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#80000000">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/roomCodeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Room: ABC123"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/confirmationStatusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="#FFD700"
+            android:layout_marginStart="8dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/currencyTradeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="#00FF00"
+            android:layout_marginStart="8dp"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/otherPlayerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Waiting for player..."
+            android:textSize="14sp"
+            android:textColor="#CCCCCC" />
+
+        <Button
+            android:id="@+id/leaveRoomButton"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="LEAVE"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@drawable/back_button_background"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+    <!-- Main Content Area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- Your Skins Container (30%) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:background="#20000000">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="YOUR SKINS"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp" />
+
+            <GridView
+                android:id="@+id/yourSkinsGridView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="3"
+                android:horizontalSpacing="18dp"
+                android:verticalSpacing="8dp"
+                android:padding="4dp"
+                android:stretchMode="none"
+                android:columnWidth="60dp"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false" />
+
+        </LinearLayout>
+
+        <!-- Trade Area Container (50%) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:background="#20000000">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TRADE AREA"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <!-- You Give (50% of trade area) -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="4dp"
+                    android:background="#30000000">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YOU GIVE"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#4CAF50"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="8dp" />
+
+                    <GridView
+                        android:id="@+id/youGiveGridView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:numColumns="2"
+                        android:horizontalSpacing="45dp"
+                        android:verticalSpacing="8dp"
+                        android:padding="8dp"
+                        android:stretchMode="none"
+                        android:columnWidth="40dp"
+                        android:scrollbars="vertical"
+                        android:fadeScrollbars="false" />
+
+                </LinearLayout>
+
+                <!-- They Give (50% of trade area) -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="4dp"
+                    android:background="#30000000">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="THEY GIVE"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#FF9800"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="8dp" />
+
+                    <GridView
+                        android:id="@+id/theyGiveGridView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:numColumns="2"
+                        android:horizontalSpacing="45dp"
+                        android:verticalSpacing="8dp"
+                        android:padding="8dp"
+                        android:stretchMode="none"
+                        android:columnWidth="40dp"
+                        android:scrollbars="vertical"
+                        android:fadeScrollbars="false" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Skin Details Container (20%) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:background="#40000000">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SKIN DETAILS"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp" />
+
+            <ImageView
+                android:id="@+id/skinPreviewImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/skin_preview_background"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/skinNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select a skin"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/skinDescriptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="10sp"
+                android:textColor="#CCCCCC"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/skinPriceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="10sp"
+                android:textColor="#CCCCCC"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/actionButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text=""
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="@drawable/buy_button_background"
+                android:textColor="#FFFFFF"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Bottom Action Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center">
+
+        <!-- Currency Input Section -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You:"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="4dp" />
+
+            <EditText
+                android:id="@+id/youGiveCurrencyEditText"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/input_field_background"
+                android:inputType="number"
+                android:gravity="center"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="They:"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="4dp" />
+
+            <EditText
+                android:id="@+id/theyGiveCurrencyEditText"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/input_field_background"
+                android:inputType="number"
+                android:gravity="center"
+                android:enabled="false"
+                android:focusable="false" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/confirmTradeButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="CONFIRM TRADE"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/buy_button_background"
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="8dp"
+            android:enabled="false" />
+
+        <Button
+            android:id="@+id/cancelTradeButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="CANCEL CONFIRM"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/sell_button_background"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -61,6 +61,7 @@ public class SkinGridAdapter extends BaseAdapter {
             holder.skinImage = convertView.findViewById(R.id.skinImage);
             holder.equippedIndicator = convertView.findViewById(R.id.equippedIndicator);
             holder.lockedIndicator = convertView.findViewById(R.id.lockedIndicator);
+            holder.rarityIndicator = convertView.findViewById(R.id.rarityIndicator);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -112,6 +113,19 @@ public class SkinGridAdapter extends BaseAdapter {
             holder.skinImage.setAlpha(1.0f); // Full opacity
         }
 
+        // Show rarity indicator
+        if (skin.getRarity() != null) {
+            holder.rarityIndicator.setVisibility(View.VISIBLE);
+            String rarityText = getRarityDisplayText(skin.getRarity());
+            holder.rarityIndicator.setText(rarityText);
+            
+            // Set rarity color
+            int rarityColor = getRarityColor(skin.getRarity());
+            holder.rarityIndicator.setTextColor(rarityColor);
+        } else {
+            holder.rarityIndicator.setVisibility(View.GONE);
+        }
+
         // Set click listener
         convertView.setOnClickListener(v -> {
             if (listener != null) {
@@ -122,9 +136,36 @@ public class SkinGridAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private String getRarityDisplayText(Skin.Rarity rarity) {
+        switch (rarity) {
+            case COMMON:
+                return "C";
+            case UNCOMMON:
+                return "U";
+            case RARE:
+                return "R";
+            default:
+                return "";
+        }
+    }
+    
+    private int getRarityColor(Skin.Rarity rarity) {
+        switch (rarity) {
+            case COMMON:
+                return 0xFF808080; // Gray
+            case UNCOMMON:
+                return 0xFF00FF00; // Green
+            case RARE:
+                return 0xFFFFD700; // Gold
+            default:
+                return 0xFFFFFFFF; // White
+        }
+    }
+
     private static class ViewHolder {
         ImageView skinImage;
         TextView equippedIndicator;
         TextView lockedIndicator;
+        TextView rarityIndicator;
     }
 }

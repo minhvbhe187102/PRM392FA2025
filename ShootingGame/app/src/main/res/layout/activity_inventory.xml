@@ -74,7 +74,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
             android:background="@drawable/skin_preview_background"
-            android:scaleType="centerInside" />
+            android:scaleType="centerCrop" />
 
         <!-- Skin Info -->
         <TextView

@@ -70,7 +70,7 @@ public class SkinManager {
         bitmap.eraseColor(0xFF00FF00); // Green color
         
         String base64 = bitmapToBase64(bitmap);
-        return new Skin("default", "Default Skin", "Free starter skin", 0, base64);
+        return new Skin("default", "Default Skin", "Free starter skin", 0, base64, Skin.Rarity.COMMON);
     }
 
     // Create example unique skin
@@ -88,7 +88,7 @@ public class SkinManager {
         String skinId = generateSkinId();
         String name = "Unique Skin #" + skinId.substring(5, 10);
         
-        return new Skin(skinId, name, "One-of-a-kind skin", price, base64, creatorId, true);
+        return new Skin(skinId, name, "One-of-a-kind skin", price, base64, creatorId, true, Skin.Rarity.COMMON);
     }
 
     // Compress base64 if too large

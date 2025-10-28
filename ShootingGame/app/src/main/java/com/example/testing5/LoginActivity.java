@@ -1,11 +1,13 @@
 package com.example.testing5;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +28,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText, passwordEditText, usernameEditText;
     private Button loginButton;
     private TextView switchModeText;
+    private CheckBox rememberMeCheckBox;
     private boolean isLoginMode = true;
+    
+    private SharedPreferences sharedPreferences;
+    private static final String PREFS_NAME = "LoginPrefs";
+    private static final String KEY_EMAIL = "saved_email";
+    private static final String KEY_REMEMBER_ME = "remember_me";
     
     private FirebaseAuth mAuth;
     private FirebaseService firebaseService;
@@ -40,12 +48,22 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseService = FirebaseService.getInstance();
         
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        
         // Initialize views
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         usernameEditText = findViewById(R.id.usernameEditText);
         loginButton = findViewById(R.id.loginButton);
         switchModeText = findViewById(R.id.switchModeText);
+        rememberMeCheckBox = findViewById(R.id.rememberMeCheckBox);
+        
+        // Check if user is already logged in
+        checkAutoLogin();
+        
+        // Load saved email if remember me was checked
+        loadSavedLoginInfo();
         
         // Set initial state
         updateUI();
@@ -101,6 +119,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
+                                // Save login information if remember me is checked
+                                saveLoginInfo(email, rememberMeCheckBox.isChecked());
                                 // Check if user profile exists, create if not
                                 checkAndCreateUserProfile(user);
                             }
@@ -180,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
         String base64 = skinManager.bitmapToBase64(bitmap);
         
         String skinId = "default_" + userId; // Unique default skin per user
-        Skin defaultSkin = new Skin(skinId, "Default Skin", "Your free starter skin", 0, base64, userId, true);
+        Skin defaultSkin = new Skin(skinId, "Default Skin", "Your free starter skin", 0, base64, userId, true, Skin.Rarity.COMMON);
         defaultSkin.setCurrentOwner(userId); // Assign ownership immediately
         defaultSkin.setForSale(false); // Not for sale - personal skin
         
@@ -226,5 +246,45 @@ public class LoginActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+    
+    private void checkAutoLogin() {
+        // Check if user is already logged in with Firebase
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            // User is already logged in, navigate to main menu
+            navigateToMainMenu();
+        }
+    }
+    
+    private void loadSavedLoginInfo() {
+        // Load saved email if remember me was checked
+        boolean rememberMe = sharedPreferences.getBoolean(KEY_REMEMBER_ME, false);
+        if (rememberMe) {
+            String savedEmail = sharedPreferences.getString(KEY_EMAIL, "");
+            if (!savedEmail.isEmpty()) {
+                emailEditText.setText(savedEmail);
+                rememberMeCheckBox.setChecked(true);
+            }
+        }
+    }
+    
+    private void saveLoginInfo(String email, boolean rememberMe) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (rememberMe) {
+            editor.putString(KEY_EMAIL, email);
+            editor.putBoolean(KEY_REMEMBER_ME, true);
+        } else {
+            editor.remove(KEY_EMAIL);
+            editor.putBoolean(KEY_REMEMBER_ME, false);
+        }
+        editor.apply();
+    }
+    
+    private void clearSavedLoginInfo() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(KEY_EMAIL);
+        editor.putBoolean(KEY_REMEMBER_ME, false);
+        editor.apply();
     }
 }

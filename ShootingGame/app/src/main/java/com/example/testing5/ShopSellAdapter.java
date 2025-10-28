@@ -53,6 +53,7 @@ public class ShopSellAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.skinImage = convertView.findViewById(R.id.skinImage);
             holder.statusText = convertView.findViewById(R.id.statusText);
+            holder.rarityIndicator = convertView.findViewById(R.id.rarityIndicator);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -77,6 +78,19 @@ public class ShopSellAdapter extends BaseAdapter {
         holder.statusText.setText("SELL");
         holder.statusText.setVisibility(View.VISIBLE);
         
+        // Show rarity indicator
+        if (skin.getRarity() != null) {
+            holder.rarityIndicator.setVisibility(View.VISIBLE);
+            String rarityText = getRarityDisplayText(skin.getRarity());
+            holder.rarityIndicator.setText(rarityText);
+            
+            // Set rarity color
+            int rarityColor = getRarityColor(skin.getRarity());
+            holder.rarityIndicator.setTextColor(rarityColor);
+        } else {
+            holder.rarityIndicator.setVisibility(View.GONE);
+        }
+        
         // Make image circular
         holder.skinImage.setClipToOutline(true);
         holder.skinImage.setOutlineProvider(new android.view.ViewOutlineProvider() {
@@ -96,8 +110,35 @@ public class ShopSellAdapter extends BaseAdapter {
         return convertView;
     }
     
+    private String getRarityDisplayText(Skin.Rarity rarity) {
+        switch (rarity) {
+            case COMMON:
+                return "C";
+            case UNCOMMON:
+                return "U";
+            case RARE:
+                return "R";
+            default:
+                return "";
+        }
+    }
+    
+    private int getRarityColor(Skin.Rarity rarity) {
+        switch (rarity) {
+            case COMMON:
+                return 0xFF808080; // Gray
+            case UNCOMMON:
+                return 0xFF00FF00; // Green
+            case RARE:
+                return 0xFFFFD700; // Gold
+            default:
+                return 0xFFFFFFFF; // White
+        }
+    }
+
     private static class ViewHolder {
         ImageView skinImage;
         TextView statusText;
+        TextView rarityIndicator;
     }
 }
