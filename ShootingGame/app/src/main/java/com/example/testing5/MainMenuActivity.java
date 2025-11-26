@@ -46,6 +46,8 @@ public class MainMenuActivity extends AppCompatActivity {
         Button pullButton = findViewById(R.id.pullButton);
         Button shopButton = findViewById(R.id.shopButton);
         Button tradeButton = findViewById(R.id.tradeButton);
+        Button multiplayerButton = findViewById(R.id.multiplayerButton);
+        Button purchaseButton = findViewById(R.id.purchaseButton);
         ImageButton settingsButton = findViewById(R.id.settingsButton);
         TextView userInfoText = findViewById(R.id.userInfoText);
 
@@ -92,6 +94,23 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenuActivity.this, TradingRoomActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Multiplayer button - navigate to multiplayer room
+        multiplayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, MultiplayerRoomActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        purchaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, VnPayPurchaseActivity.class);
                 startActivity(intent);
             }
         });

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +21,13 @@ public class PullActivity extends AppCompatActivity {
     
     private Button pullButton;
     private Button backButton;
+    private View pulledSkinContainer;
+    private ImageView rolledSkinImageView;
+    private TextView rolledSkinNameTextView;
     private FirebaseService firebaseService;
     private FirebaseAuth firebaseAuth;
     private User currentUser;
+    private android.graphics.Bitmap lastGeneratedBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,11 @@ public class PullActivity extends AppCompatActivity {
     private void initializeViews() {
         pullButton = findViewById(R.id.pullButton);
         backButton = findViewById(R.id.backButton);
+        pulledSkinContainer = findViewById(R.id.pulledSkinContainer);
+        rolledSkinImageView = findViewById(R.id.rolledSkinImageView);
+        rolledSkinNameTextView = findViewById(R.id.rolledSkinNameTextView);
+
+        pulledSkinContainer.setVisibility(View.GONE);
         
         // Set click listeners
         backButton.setOnClickListener(v -> finish());
@@ -111,6 +122,7 @@ public class PullActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> updateTask) {
                             if (updateTask.isSuccessful()) {
+                                displayPulledSkin(randomSkin);
                                 Toast.makeText(PullActivity.this, 
                                     "Pulled: " + randomSkin.getName() + "!", Toast.LENGTH_LONG).show();
                             } else {
@@ -149,6 +161,7 @@ public class PullActivity extends AppCompatActivity {
         
         // Create bitmap with rarity-specific visual elements
         android.graphics.Bitmap bitmap = createSkinBitmap(backgroundColor, rarity, random);
+        lastGeneratedBitmap = bitmap;
         
         // Convert to base64
         String base64 = SkinManager.getInstance().bitmapToBase64(bitmap);
@@ -167,6 +180,21 @@ public class PullActivity extends AppCompatActivity {
         skin.setForSale(false); // Not for sale - personal skin
         
         return skin;
+    }
+
+    private void displayPulledSkin(Skin skin) {
+        if (pulledSkinContainer == null || rolledSkinImageView == null || rolledSkinNameTextView == null) {
+            return;
+        }
+
+        if (lastGeneratedBitmap != null) {
+            rolledSkinImageView.setImageBitmap(lastGeneratedBitmap);
+        } else {
+            rolledSkinImageView.setImageDrawable(null);
+        }
+
+        rolledSkinNameTextView.setText(skin.getName());
+        pulledSkinContainer.setVisibility(View.VISIBLE);
     }
     
     private android.graphics.Bitmap createSkinBitmap(int backgroundColor, Skin.Rarity rarity, Random random) {

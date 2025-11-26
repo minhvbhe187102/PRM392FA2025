@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">testing5</string>
+    <string name="vnpay_title">Buy Currency via VNPay</string>
+    <string name="vnpay_currency_placeholder">Currency: --</string>
+    <string name="vnpay_currency_format">Currency: %1$d</string>
+    <string name="vnpay_instruction_text">Choose a package to top up your account. You will be redirected to VNPay to complete the payment.</string>
+    <string name="vnpay_package_10k">10.000₫ → Get 100 coins</string>
+    <string name="vnpay_package_50k">50.000₫ → Get 500 coins</string>
+    <string name="vnpay_package_100k">100.000₫ → Get 1.200 coins</string>
+    <string name="vnpay_package_200k">200.000₫ → Get 2.600 coins</string>
+    <string name="vnpay_close">Close</string>
+    <string name="vnpay_after_payment_hint">Complete the payment in the VNPay window and return here to refresh your balance.</string>
+    <string name="vnpay_after_payment_hint_with_order">Complete the VNPay payment for order %1$s and return here to refresh your balance.</string>
+    <string name="vnpay_generating_payment_link">Generating secure VNPay payment link…</string>
+    <string name="vnpay_error_backend_url">Configure BuildConfig.VNPAY_BACKEND_BASE_URL with your backend endpoint before starting VNPay checkout.</string>
+    <string name="vnpay_error_generating_link">Unable to generate VNPay link (HTTP %1$d). Try again later.</string>
+    <string name="vnpay_error_invalid_response">VNPay backend response missing payment URL. Please try again.</string>
+    <string name="vnpay_error_network">VNPay link request failed: %1$s</string>
+    <string name="vnpay_error_missing_user">Unable to start VNPay checkout. Please wait for your profile to load and try again.</string>
+    <string name="vnpay_return_success_fetching">Payment successful! Order %1$s confirmed.
+Refreshing balance…</string>
+    <string name="vnpay_return_success">Payment successful! Order %1$s.
+New balance: %2$d coins.</string>
+    <string name="vnpay_return_failed">Payment failed for order %1$s (code %2$s).
+Please try again or contact support.</string>
+    <string name="vnpay_return_no_data">No payment data received.</string>
+    <string name="vnpay_return_not_logged_in">Please log in again to refresh your balance.</string>
+    <string name="vnpay_return_refresh_failed">Could not confirm the payment yet. Please reopen the menu to check your balance.</string>
+    <string name="vnpay_return_balance_updated">Balance updated!</string>
+    <string name="vnpay_return_unknown_order">unknown order</string>
+    <string name="vnpay_return_pending">Waiting for VNPay confirmation on order %1$s…</string>
 </resources>

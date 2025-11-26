@@ -55,6 +55,36 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".MultiplayerRoomActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MultiplayerLobbyActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MultiplayerGameActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".VnPayPurchaseActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".VnPayReturnActivity"
+            android:exported="true"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.example.testing5" android:host="vnpay-result" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FirebaseTestActivity"
+            android:exported="false" />
+        <activity
             android:name=".Testing1"
             android:exported="false" />
         <activity

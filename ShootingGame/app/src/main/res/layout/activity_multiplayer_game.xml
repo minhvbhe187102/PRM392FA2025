@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MultiplayerGameActivity">
+
+    <!-- Left Control Pair (Movement Direction) -->
+    <ImageView
+        android:id="@+id/leftBigCircle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="80dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/circle" />
+
+    <ImageView
+        android:id="@+id/leftSmallCircle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="-10dp"
+        app:layout_constraintEnd_toStartOf="@+id/leftBigCircle"
+        app:layout_constraintTop_toTopOf="@+id/leftBigCircle"
+        app:srcCompat="@drawable/circle" />
+
+    <!-- Middle Player Pair (Actual Player) -->
+    <ImageView
+        android:id="@+id/playerBigCircle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="80dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/circle" />
+
+    <ImageView
+        android:id="@+id/playerSmallCircle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="-10dp"
+        app:layout_constraintEnd_toStartOf="@+id/playerBigCircle"
+        app:layout_constraintTop_toTopOf="@+id/playerBigCircle"
+        app:srcCompat="@drawable/circle" />
+
+    <!-- Right Control Pair (Shooting Direction) -->
+    <ImageView
+        android:id="@+id/rightBigCircle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="80dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/circle" />
+
+    <ImageView
+        android:id="@+id/rightSmallCircle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="-10dp"
+        app:layout_constraintEnd_toStartOf="@+id/rightBigCircle"
+        app:layout_constraintTop_toTopOf="@+id/rightBigCircle"
+        app:srcCompat="@drawable/circle" />
+
+    <!-- Other Player Display (Top Center) -->
+    <ImageView
+        android:id="@+id/otherPlayerBigCircle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/circle" />
+
+    <ImageView
+        android:id="@+id/otherPlayerSmallCircle"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="-8dp"
+        app:layout_constraintEnd_toStartOf="@+id/otherPlayerBigCircle"
+        app:layout_constraintTop_toTopOf="@+id/otherPlayerBigCircle"
+        app:srcCompat="@drawable/circle" />
+
+    <!-- Experience Bar -->
+    <FrameLayout
+        android:id="@+id/expBarContainer"
+        android:layout_width="400dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/exp_bar_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.5">
+
+        <View
+            android:id="@+id/expBarProgress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start|center_vertical"
+            android:background="@drawable/exp_bar_progress" />
+
+    </FrameLayout>
+
+    <!-- Level Text -->
+    <TextView
+        android:id="@+id/levelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Level 1"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/expBarContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <!-- Player 1 Info (Left Top) -->
+    <TextView
+        android:id="@+id/player1InfoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="YOU"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/levelText"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Player 2 Info (Right Top) -->
+    <TextView
+        android:id="@+id/player2InfoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="ALLY"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/levelText"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,36 +26,36 @@
 
         <Button
             android:id="@+id/buyTabButton"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="BUY"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:layout_marginStart="8dp"
             android:background="@drawable/tab_button_background"
+            android:text="BUY"
             android:textColor="#FFFFFF"
-            android:layout_marginStart="8dp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/sellTabButton"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="SELL"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:layout_marginStart="8dp"
             android:background="@drawable/tab_button_background"
+            android:text="SELL"
             android:textColor="#FFFFFF"
-            android:layout_marginStart="8dp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/retrieveTabButton"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="RETRIEVE"
-            android:textSize="10sp"
-            android:textStyle="bold"
+            android:layout_marginStart="8dp"
             android:background="@drawable/tab_button_background"
+            android:text="RETRIEVE"
             android:textColor="#FFFFFF"
-            android:layout_marginStart="8dp" />
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="0dp"

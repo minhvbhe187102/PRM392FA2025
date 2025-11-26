@@ -101,27 +101,27 @@
                 android:id="@+id/roomCodeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/input_field_background"
+                android:gravity="center"
                 android:hint="Enter 6-digit room code"
-                android:textSize="18sp"
                 android:inputType="number"
                 android:maxLength="6"
-                android:background="@drawable/input_field_background"
+                android:padding="16dp"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#CCCCCC"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/joinRoomButton"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:text="JOIN ROOM"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/sell_button_background"
+                android:text="JOIN ROOM"
                 android:textColor="#FFFFFF"
-                android:layout_gravity="center_horizontal" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
